@@ -1,0 +1,62 @@
+@baseUrl = http://localhost:8080
+@apiKey = keyforimplementtestenv
+@userId = 6
+
+### Create user
+POST {{baseUrl}}/users
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "username": "Marvin",
+  "email": "marvin@example.com",
+  "password": "myPassword123"
+}
+
+### Get user by ID
+GET {{baseUrl}}/users/{{userId}}
+X-API-Key: {{apiKey}}
+
+### List users
+GET {{baseUrl}}/users?page=0&size=10
+X-API-Key: {{apiKey}}
+
+### Filter users by name
+GET {{baseUrl}}/users?name=mar&page=0&size=10
+X-API-Key: {{apiKey}}
+
+### Update name
+PATCH {{baseUrl}}/users/{{userId}}
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "username": "Marvin Updated"
+}
+
+### Update password
+PATCH {{baseUrl}}/users/{{userId}}
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "password": "newPassword123"
+}
+
+### Update name and password
+PATCH {{baseUrl}}/users/{{userId}}
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "username": "Marvin",
+  "password": "anotherPassword123"
+}
+
+### Get nonexistent user — expects 404
+GET {{baseUrl}}/users/999999
+X-API-Key: {{apiKey}}
+
+### Invalid API key — expects 401
+GET {{baseUrl}}/users
+X-API-Key: invalid-key
